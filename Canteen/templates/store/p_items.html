@@ -1,0 +1,56 @@
+<div class="restaurent">
+    <h1 class="font-bold text-xl text-center text-info">{{key.0}} {% if not key.0.is_open %}<span class="text-xs bg-rose-600 text-white p-1 rounded-lg">Shop Closed</span>{% endif%}</h1>
+    {% for c in key.1 %}
+        <div>
+            <div class="collapse collapse-arrow {% if not key.0.is_open %} opacity-90 {% endif %} mb-2">
+                <input type="checkbox" name="my-accordion-{{key.0.id}}" checked/>
+                <div class="collapse-title text-lg font-medium text-info">{{c.0.name}}</div>
+                <div class="collapse-content flex flex-col gap-y-4">
+                    {% for product in c.1 %}
+
+                        <div class="dishes bg-accent/15 rounded-xl shadow-md hover:shadow-lg">
+                            <div class="flex">
+                                <div class="p-4 grow inline-flex  flex-col justify-between text-info">
+                                    <a href="/refreshment/{{product.id}}"><p class="pname text-xl font-medium">{{product.name}}</p></a>
+                                    <p class="pprice font-semibold py-1">Rs. {{product.price}}/-</p>
+                                    <p class="text-sm">{{product.description}}</p>
+                                </div>
+                
+                                <div class="relative">
+                                    <div class="h-28 w-32 overflow-hidden rounded-xl">
+                                        <img src="{{ product.image.url }}" alt="get net" class="h-full w-full object-fit">
+                                    </div>
+                
+                                    <div class="cart_buttons absolute bottom-0 left-0 right-0">
+                                        <div class="available bg-accent rounded-b-xl text-sm overflow-hidden">
+                                            {% if product.availibility and key.0.is_open %}
+                                            <button class="w-full py-1 text-white" id="AddToCartButton" value="{{product.id}}">Add to Cart</button>
+                                            {% else %}
+                                            <button class="w-full py-1 cursor-not-allowed bg-rose-600 text-white">{% if not key.0.is_open %} Shop Closed {% else %}Not Available{% endif %}</button>
+                                            {% endif %}
+                
+                                            <div class="hidden">
+                                                <div class="flex items-center">
+                                                    <button type="button" value="{{product.id}}" id="cart-minus-btn" class="px-4 text-md py-1 text-white">-</button>
+                                                    <p class="grow text-center text-accent bg-secondary py-1 font-semibold" id="qtty{{product.id}}">1</p>
+                                                    <button type="button" value="{{product.id}}" id="cart-plus-btn" class=" px-4 text-md py-1 text-white">+</button>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

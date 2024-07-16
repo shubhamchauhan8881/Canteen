@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Inter&family=Source+Code+Pro&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  font-family: "Teachers", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.swiper-pagination-bullet-active{
+  background-color: #E8D4C3 !important;
+}
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
+
+.search-input-form:hover .search-results-wrapper{
+  display: block;
+}

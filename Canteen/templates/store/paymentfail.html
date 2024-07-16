@@ -1,0 +1,37 @@
+{% extends 'store/base.html' %}
+{% block content %}
+{% load static %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <div class="px-3 pb-10 ">
+        {% include 'store/header.html' %}
+        {% include 'store/sweeper.html' %}
+    </div>
+
+    <div class="bg-secondary rounded-xl">
+    
+        <div class="p-3 text-center">
+            <div class=" border-b-2">
+                <p class="Cookie text-5xl">Order Failed</p>
+            </div>
+
+            <div class="mx-5 my-5 ">
+                <div class="h-36 w-36 mx-auto">
+                    <img src="{% static 'media/order-f.png' %}" class="h-full w-full object-contain">
+                </div>
+                <div>
+                    <p class="text-center pb-3">It seems you failed completing the payment.</p>
+                    <p class="opacity-60 text-xs">Order details:</p>
+                    <p>Order Id: {{orderid}}</p>
+                    <p>Transaction Id: {{transactionid}}</p>
+                    <p class="text-xs mt-2">Address</p>
+                    <p> {{address}}</p>
+                </div>
+
+                <a href="../../" class="text-Canteen mt-2"><button type="button" class="w-full mt-3 bg-emerald-600 text-white py-2 px-5 rounded-md hover:bg-emerald-500 duration-300">Continue Shopping &RightArrow;</button></a>
+            </div>
+        </div>
+    </div>
+
+    {% include 'store/footer.html' %}
+{% endblock %}

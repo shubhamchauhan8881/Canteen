@@ -1,0 +1,122 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<div class="px-4">
+    {% include 'store/header.html' %}
+    {% include 'store/sweeper.html' %}
+</div>
+
+<div class="bg-secondary rounded-xl relative px-4 py-8">
+
+    <div class="flex items-center justify-center gap-2 mb-8 text-info">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-10 h-10">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+        <h2 class="text-3xl font-bold"> CART</h2> 
+    </div>
+
+
+    {% if not cartEmpty %}
+
+    <div class="cart_listing flex flex-col gap-y-4 text-info">
+        <p class="text-md font-semibold">Items description:</p>
+        
+        {% for product in products %}
+            <div class="box flex border-b-2 border-info/30">
+                <div class="grow">
+                    <p class="text-lg font-normal">{{product.0.name}}</p>
+                </div>
+                <div class="price">
+                    <p >{{product.0.price}} x {{product.1}}</p>
+                </div>  
+            </div>
+        {% endfor %}
+        
+        <div class="box flex border-b-2 border-info/30">
+            <div class="grow">
+                <p class="text-lg font-normal">Delivery charge</p>
+            </div>
+            <div class="price">
+                <p>Rs. {{deliveryCharge}}</p>
+            </div>  
+        </div>
+        
+        <div class="box flex border-b-2 border-info/30 mt-4">
+            <div class="grow">
+                <p class="font-medium text-lg">Sum total</p>
+            </div>
+            <div class="price">
+                <p class="font-semibold">Rs. {{total}}</p>
+            </div>  
+        </div>
+        
+        <form action="/payment/" method="post" class="form-control mt-8">
+            {% csrf_token %}
+            <h4 class="mb-2 font-semibold">Communication Preferences</h4>
+            <div class="flex flex-col gap-y-4">
+                    
+                <fieldset> 
+                    <legend>Name: </legend>
+                    <input type="text" readonly value="{{customer.user.first_name}}" class="input input-bordered bg-transparent w-full opacity-80">
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Phone: </legend>
+                    <input type="text" name="againPhone" value="{{customer.number}}" class="input input-bordered bg-transparent w-full">
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Address: </legend>
+                    <input type="text" name="againAddress" value="{{customer.address}}" class="input input-bordered bg-transparent w-full">
+                </fieldset>
+
+                <fieldset>
+                    <legend class="text-sm">Payment Method: </legend>
+                    <div class="ms-2 flex items-center justify-start gap-2 py-1">
+                        <input type="radio" name="paymentmethod" class="checkbox checkbox-accent" value="cod" checked>
+                        <span class="">COD</span>
+                    </div>
+
+                    <div class="ms-2 flex items-center justify-start gap-2 py-1">
+                        <input type="radio" name="paymentmethod" class="checkbox checkbox-accent" value="" disabled>
+                        <span class="">Online (will be available soon)</span>
+                    </div>
+                    
+                </fieldset>
+            </div>
+
+            {% if cant_place_order %}
+                <p class="mt-4 text-sm">{{err_message}}</p>
+                <div class="text-right mt-2">
+                    <p class="btn btn-error btn-wide text-white  cursor-not-allowed">CANT NOT PLACE ORDER</p> 
+                </div>
+            {% else %} 
+                <div class="text-right mt-8">
+                    <button type="submit" class="btn btn-primary btn-wide text-white">Confirm</button> 
+                </div>
+            {% endif %}
+        </form>
+
+    </div>
+    {% else %}
+        <div class="text-center">
+
+            <div class="my-12 text-info">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-28 h-28 mx-auto">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <p class="text-center text-xl font-bold">You cart is empty!</p>
+            </div>
+
+            <div class="">
+                <a href="/">
+                    <button class="btn btn-wide btn-primary">Taste a range of foods</button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% include 'store/footer.html' %}
+
+{% endblock %}

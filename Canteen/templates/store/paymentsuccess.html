@@ -1,0 +1,48 @@
+{% extends 'store/base.html' %}
+{% block content %}
+{% load static %}
+
+    <div class="px-4">
+        {% include 'store/header.html' %}
+        {% include 'store/sweeper.html' %}
+    </div>
+
+    <div class="bg-secondary text-Black rounded-xl relative px-4 py-8 text-accent">
+    
+        <div class="flex items-center justify-center">
+            <p class="text-2xl font-bold text-info">Order Confirmed</p>
+        </div>
+        
+        <div class="h-36 w-36 mx-auto my-4">
+            <img src="{% static 'media/order-conf.png' %}" class="h-full w-full object-contain">
+        </div>
+
+        <div class="">
+            <div class="text-center">
+                <p class="text-sm font-medium mb-2 text-info">Order Details: </p>
+                <p>Order Id: {{order.razorpay_order_id}}</p>
+                <p class="font-medium">Amount: ₹ {{order.amount}}</p>
+
+                <p class="text-sm font-medium my-2 text-info">Items: </p>
+
+                {% comment %} {% if order.payment_method == 'cod' %}
+                    <p>Payment method: COD</p>
+                {% else %}
+                    <p>Payment method: Online</p>
+                    <p>Transaction Id: {{order.razorpay_payment_id}}</p>
+                {% endif %} {% endcomment %}
+                <p class="text-sm font-medium my-2 text-info">Delivery Address: </p>
+                <p>{{address}}</p>
+
+            </div>
+
+            <div class="mt-8 text-center">
+                <a href="/">
+                    <button type="button" class="btn btn-wide btn-accent">Continue Shopping &RightArrow;</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% include 'store/footer.html' %}
+{% endblock %}

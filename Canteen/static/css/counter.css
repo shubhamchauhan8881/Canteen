@@ -1,0 +1,57 @@
+table, th, td {
+    border:1px solid #dddddda8;
+    padding: 5px;
+    border-collapse: collapse;
+  }
+
+
+.nav li{
+    font-size:20px;
+    padding: 10px 10px;
+    color: black;   
+    margin-bottom: 10px;
+}
+.counterManForm h2{
+    transition: 0.8s ease;
+    background-color: #004c93d5;
+    color: #fff;
+}
+
+fieldset {
+    border: 0;
+    margin-bottom: 20px;
+  }
+
+.counterManForm{
+    margin: auto;
+    width: 400px;
+    margin-top: 150px;
+}
+.counterManForm h2{
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.counterManForm input{
+    width: 100%;
+    font-size:15px;
+    padding: 5px 10px;
+    outline: none;
+}
+.counterManForm input[type="submit"]{
+    background-color: #004B93;
+    color: #fff;
+    width: 150px;
+    margin-top: 10px;
+    border-radius: 12px;
+}
+.err{
+    background-color:#eb213fee;
+    font-size: 15px;
+    color: #fff;
+    padding:8px 10px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+

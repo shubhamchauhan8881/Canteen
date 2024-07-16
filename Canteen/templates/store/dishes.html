@@ -1,0 +1,35 @@
+<div class="dishes bg-accent/15 rounded-xl shadow-md hover:shadow-lg">
+    <div class="flex">
+        <div class="p-4 grow inline-flex  flex-col justify-between text-accent">
+            <a href="/refreshment/{{product.id}}"><p class="pname text-xl font-medium">{{product.name}}</p></a>
+            <p class="pprice font-semibold py-1">Rs. {{product.price}}/-</p>
+            <p class="text-sm">{{product.description}}</p>
+        </div>
+
+        <div class="relative">
+            <div class="h-28 w-32 overflow-hidden rounded-xl">
+                <img src="{{ product.image.url }}" alt="get net" class="h-full w-full object-fit">
+            </div>
+
+            <div class="cart_buttons absolute bottom-0 left-0 right-0">
+                <div class="available bg-accent rounded-b-xl text-sm overflow-hidden">
+                    {% if product.availibility and product.shop.is_open %}
+                    <button class="w-full py-1 text-white" id="AddToCartButton" value="{{product.id}}">Add to Cart</button>
+                    {% else %}
+                    <button class="w-full py-1 cursor-not-allowed bg-rose-600 text-white">{% if not product.shop.is_open %} Shop Closed {% else %}Not Available{% endif %}</button>
+                    {% endif %}
+
+                    <div class="hidden">
+                        <div class="flex items-center">
+                            <button type="button" value="{{product.id}}" id="cart-minus-btn" class="px-4 text-md py-1 text-white">-</button>
+                            <p class="grow text-center text-black py-1 font-semibold bg-secondary" id="qtty{{product.id}}">1</p>
+                            <button type="button" value="{{product.id}}" id="cart-plus-btn" class=" px-4 text-md py-1 text-white">+</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

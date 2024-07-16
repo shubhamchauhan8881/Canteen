@@ -1,0 +1,18 @@
+{% load static %}
+<div class="slider mt-4 mb-12">
+    <h3 class="font-semibold text-secondary text-lg mb-1">Newly added to the Menu...</h3>
+
+    <div class="swiper rounded-md">
+        <div class="swiper-wrapper">
+            {% for item in NEW_IN_THE_MENU %}
+            <div class="swiper-slide">
+                <div class="relative h-[16rem] w-full">
+                    <img src="{{item.image.url}}" alt="get net" class="h-full w-full object-fit image-shadow">
+                    <span class="absolute bg-accent text-white py-1 px-2 rounded-tr left-0 bottom-0 font-extralight">@ ₹{{item.price}} </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>

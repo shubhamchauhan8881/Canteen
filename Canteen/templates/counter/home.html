@@ -1,0 +1,25 @@
+{% extends 'counter/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="w-full">
+    <p class="my-5 text-xl font-bold">Recent Orders</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="p-container">
+        {% if orders %}
+            {% for order in orders %}
+                {% include 'counter/orderListing.html' %}
+            {% endfor %}
+        {% else %}
+            <p id="home-no-orders">no any order placed yet...</p>
+        {% endif %}
+    </div>
+
+    <!-- <div class="overflow-x-scroll">
+                    <span class="text-white text-xs pb-1 px-2 rounded-md {% if order.0.order_status == 'rejected' %}bg-rose-500{% elif order.0.order_status == 'active' %}bg-cyan-500{% elif order.0.order_status == 'accepted' %}bg-emerald-500{% elif order.0.order_status == 'pending' %}bg-yellow-500{% elif order.0.order_status == 'completed' %}bg-blue-500{% endif %}">{{order.0.order_status}}</span>
+    </div> -->
+</div>
+<script>
+    
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+<div id="row{{order.0.id}}" class="flex p-5 bg-base-100 hover:bg-base-200 rounded shadow-md relative">
+    <span class="absolute top-0 left-0 text-white text-[10px] p-0.5 px-1 rounded-ss-md rounded-ee-md {% if order.0.order_status == 'rejected' %}bg-rose-500{% elif order.0.order_status == 'active' %}bg-cyan-500{% elif order.0.order_status == 'accepted' %}bg-emerald-500{% elif order.0.order_status == 'pending' %}bg-yellow-500{% elif order.0.order_status == 'completed' %}bg-blue-500{% endif %}">{{order.0.order_status}}</span>
+    <div class="grow">
+        <div>
+            <p class="text-xs opacity-90">Order id: <span id="order-details-orderid_{{order.0.id}}">{{order.0.razorpay_order_id}}</span> </p>
+            
+            <p class="font-bold text-lg" id="order-details-items_{{order.0.id}}">{% for p in order.2 %} {{p.0.name}} x {{p.1}}, {% endfor %}
+            </p>
+        </div>
+
+        <div class="leading-4 my-2 text-sm">
+            <p class="text-xs opacity-90">Customer Details: </p>
+            <h4 id="order-details-name_{{order.0.id}}">{{order.0.user.first_name}}</h4>
+            <p id="order-details-phone_{{order.0.id}}">{{order.0.againPhone}}</p>
+            <p id="order-details-address_{{order.0.id}}">{{order.0.againAddress}}</p>
+            <div class="">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 inline-block">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                </svg>   
+                <button class="btn btn-xs bg-yellow-100" id="copy_address_details" value="{{order.0.id}}">
+                    Copy                       
+                </button>
+            </div>
+        </div>
+        <div class="">
+            <p class="text-xs opacity-90">Payment Details: </p>
+            <p id="order-details-payment-method_{{order.0.id}}">{{order.0.payment_method}}</p>
+            <p class="text-xs">{{order.0.time }} | {{order.0.date}}</p>
+        </div>
+    </div>
+    
+    <div class=" flex flex-col justify-stretch gap-4">
+        <p class="font-semibold">Rs. <span id="order-details-amount_{{order.0.id}}">{{order.0.amount}}</span></p>
+        {% if order.0.order_status != "completed" and order.0.order_status != "rejected" %}
+            {% if order.0.order_status == "accepted" %}
+                <a href="/counter/order/setstatus/completed/{{order.0.id}}/">
+                    <button class="grow btn btn-md bg-blue-500">Delivered</button>
+                </a>
+            {% else %}
+                <a href="/counter/order/setstatus/accepted/{{order.0.id}}/">
+                    <button class="grow btn btn-md btn-success">Accept</button>  
+                </a>
+            {% endif %}
+                <a href="/counter/order/setstatus/rejected/{{order.0.id}}/">
+                    <button class="grow btn btn-md btn-error">Reject</button>  
+                </a>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<dialog id="my_modal_4" class="modal shadow-2xl backdrop-blur-sm" open>
+  <div class="modal-box w-80 bg-secondary shadow-xl max-w-5xl">
+    <h3 class="font-bold text-2xl teachers text-rose-600">
+        Alert
+    </h3>
+    <p class="py-2">
+        <ul class="messages text-info">
+            {% for message in messages %}
+            <li>
+                <span class="font-medium">
+                  {{ message }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button, it will close the modal -->
+        <button class="btn btn-sm btn-primary">Okay</button>
+      </form>
+    </div>
+  </div>
+</dialog>

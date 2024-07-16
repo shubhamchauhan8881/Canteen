@@ -1,0 +1,74 @@
+{% load static %}
+<header class="py-4 flex flex-col gap-y-12">
+    
+    <div class="nav flex justify-between items-center relative">
+        <span class="font-medium text-secondary">Howdy Mate!</span>
+        {% if request.user.is_authenticated %}
+        <div class="relative">
+            <button class="menu-btn btn btn-sm btn-outline btn-secondary min-w-24">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
+                <span class="text-sm">{{request.user.first_name}}</span>
+            </button>
+
+            <div class="absolute menu-items h-0 font-medium overflow-hidden top-9 left-0 right-0 bg-secondary rounded-md top">
+                <div class="p-2">
+                    <a href="/profile/">
+                        <button class="w-full border-0 p-2 rounded-md hover:bg-accent text-info hover:text-white text-left">Profile</button>
+                    </a> 
+                    
+                    <a href="/orders/">
+                        <button class="w-full border-0 p-2 rounded-md hover:bg-accent text-info hover:text-white text-left">Orders</button>
+                    </a> 
+
+                    <a href="/logout/">
+                        <button class="w-full border-0 p-2 rounded-md hover:bg-accent text-info hover:text-white text-left">Logout</button>
+                    </a> 
+                
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <a href="/login/">
+            <button class="btn btn-sm btn-outline btn-secondary" >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+            </svg>                  
+            Login
+            </button>
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="container mx-auto px-4">
+        <a href="/">
+            <img src="{% static 'media/text1.png' %}" alt="icon" class="h-full w-full object-cover">
+        </a>
+    </div>
+
+    <form class="form-control relative search-input-form" >
+        <label class="flex items-center bg-secondary rounded-lg justify-between">
+            <input type="input" id="search-input" name="query" class="input outline-none text-info border-none bg-secondary font-semibold tracking-wide grow" placeholder="Search dishes..." />
+
+            <button type="button" class="h-full btn border-none btn-secondary text-info">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  class="size-4">
+                  <path
+                    fill-rule="evenodd"
+                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                    clip-rule="evenodd" />
+                </svg>
+            </button>
+        </label>
+
+        <div class="search-results-wrapper rounded-md hidden absolute top-12 max-h-40 left-0 right-0 bg-secondary shadow-lg z-40">
+            <div class="h-full text-info overflow-y-scroll no-scrollbar">
+                <p class="text-center py-4 font-semibold" id="search-no-results">Search Results...</p>
+                <div id="search-results-container" class="flex flex-col p-2 hover:block"></div>
+            </div>
+        </div>
+    </form>
+
+</header>

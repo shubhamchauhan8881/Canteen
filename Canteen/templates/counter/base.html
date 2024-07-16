@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}" />
+    <title>CRAVIES - @BBD</title>
+</head>
+<body>
+    <div class="flex min-h-screen">
+
+
+        <div class="bg-slate-50 md:w-1/5 absolute hidden md:static top-0 bottom-0 left-0 z-50 md:block shadow-lg" id="main-menu">
+            <div class="text-center">
+                <div class="h-28 md:h-52 w-full relative">
+                    {% if shop_details.image %}
+                    <img src="{{shop_details.image.url}}" class="h-full w-full object-cover"/>
+                    {% endif %}
+                    <div class="md:hidden absolute right-2 top-2">
+                        <button class="btn btn-circle btn-error btn-xs" onclick="$('#main-menu').fadeOut()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    
+                    </div>
+                </div>
+                
+                <p class="md:text-lg font-bold">{{shop_details}}</p>
+                <h3>Admin: {{ request.user.first_name }}</h3>
+            </div>
+
+            <div class="mt-2">
+                <ul>
+                    <a href="/counter/"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">Home</li></a>
+                    <a href="/counter/all"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">All Orders</li></a>
+                    <a href="/counter/accepted"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">Pending Orders</li></a>
+                    <a href="/counter/completed"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200">Completed Orders</li></a>
+                    <a href="/counter/rejected"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200" >Rejected Orders</li></a>
+                    <a href="/counter/failed"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200" >Failed Orders</li></a>
+                    <a href="/counter/shop/products/"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200"> Products </li></a>
+                    <a href="/counter/logout/"><li class="cursor-pointer ps-4 py-2 hover:bg-slate-200 text-rose-600"> Logout </li></a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="w-full md:w-4/5 md:grow px-3">
+            {% include 'counter/header.html' %}
+
+            <div class="grid md:grid-cols-3 gap-5">
+    
+                <div class="flex p-5 bg-rose-100 rounded shadow-md">
+                    <div class="grow">
+                        <h4 class="font-headings text-2xl mb-2 font-bold">{{pending_orders_count}}</h4>
+                        <p class="mb-2 font-semibold text-headings">Pending Orders</p>
+                        <!-- <div class="flex items-center">
+                            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M29.5 7c-1.381 0-2.5 1.12-2.5 2.5 0 0.284 0.058 0.551 0.144 0.805l-6.094 5.247c-0.427-0.341-0.961-0.553-1.55-0.553-0.68 0-1.294 0.273-1.744 0.713l-4.774-2.39c-0.093-1.296-1.162-2.323-2.482-2.323-1.38 0-2.5 1.12-2.5 2.5 0 0.378 0.090 0.732 0.24 1.053l-4.867 5.612c-0.273-0.102-0.564-0.166-0.873-0.166-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5 0-0.332-0.068-0.649-0.186-0.939l4.946-5.685c0.236 0.073 0.48 0.124 0.74 0.124 0.727 0 1.377-0.316 1.834-0.813l4.669 2.341c0.017 1.367 1.127 2.471 2.497 2.471 1.381 0 2.5-1.119 2.5-2.5 0-0.044-0.011-0.086-0.013-0.13l6.503-5.587c0.309 0.137 0.649 0.216 1.010 0.216 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5z"></path> </g></svg>
+                            <p> +00%</p>
+                        </div> -->
+                    </div> 
+                    
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="64px" height="64px">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>              
+                    </div>
+                </div>
+                
+                <div class="flex p-5 bg-emerald-100 rounded shadow-md">
+                    <div class="grow">
+                        <h4 class="font-headings text-2xl mb-2 font-bold">{{today_order_count}}</h4>
+                        <p class="mb-2 font-semibold text-headings">Today's Orders</p>
+                        <!-- <div class="flex items-center">
+                            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M29.5 7c-1.381 0-2.5 1.12-2.5 2.5 0 0.284 0.058 0.551 0.144 0.805l-6.094 5.247c-0.427-0.341-0.961-0.553-1.55-0.553-0.68 0-1.294 0.273-1.744 0.713l-4.774-2.39c-0.093-1.296-1.162-2.323-2.482-2.323-1.38 0-2.5 1.12-2.5 2.5 0 0.378 0.090 0.732 0.24 1.053l-4.867 5.612c-0.273-0.102-0.564-0.166-0.873-0.166-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5 0-0.332-0.068-0.649-0.186-0.939l4.946-5.685c0.236 0.073 0.48 0.124 0.74 0.124 0.727 0 1.377-0.316 1.834-0.813l4.669 2.341c0.017 1.367 1.127 2.471 2.497 2.471 1.381 0 2.5-1.119 2.5-2.5 0-0.044-0.011-0.086-0.013-0.13l6.503-5.587c0.309 0.137 0.649 0.216 1.010 0.216 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5z"></path> </g></svg>
+                            <p> +2.9%</p>
+                        </div> -->
+                    </div>
+                    
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="64px" height="64px">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                          </svg>              
+                    </div>
+                </div>
+            
+                <div class="flex p-5 bg-yellow-100 rounded shadow-md">
+                    <div class="grow">
+                        <h4 class="font-headings text-2xl mb-2 font-bold">{{delivered_orders_count}}</h4>
+                        <p class="mb-2 font-semibold text-headings">Orders Delivered</p>
+                        <!-- <div class="flex items-center">
+                            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M29.5 7c-1.381 0-2.5 1.12-2.5 2.5 0 0.284 0.058 0.551 0.144 0.805l-6.094 5.247c-0.427-0.341-0.961-0.553-1.55-0.553-0.68 0-1.294 0.273-1.744 0.713l-4.774-2.39c-0.093-1.296-1.162-2.323-2.482-2.323-1.38 0-2.5 1.12-2.5 2.5 0 0.378 0.090 0.732 0.24 1.053l-4.867 5.612c-0.273-0.102-0.564-0.166-0.873-0.166-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c1.381 0 2.5-1.119 2.5-2.5 0-0.332-0.068-0.649-0.186-0.939l4.946-5.685c0.236 0.073 0.48 0.124 0.74 0.124 0.727 0 1.377-0.316 1.834-0.813l4.669 2.341c0.017 1.367 1.127 2.471 2.497 2.471 1.381 0 2.5-1.119 2.5-2.5 0-0.044-0.011-0.086-0.013-0.13l6.503-5.587c0.309 0.137 0.649 0.216 1.010 0.216 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5z"></path> </g></svg>
+                            <p> +1%</p>
+                        </div> -->
+                    </div>
+                    
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="64px" height="64px">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                          </svg>              
+                    </div>
+                </div>
+            
+            </div>
+            
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/counter.js' %}"></script>
+<script type="text/javascript">
+    const shop_id = {{shop_details.id}};
+    const noti_audio = new Audio("{% static 'media/notify.wav' %}");
+</script>
+</html>

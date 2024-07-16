@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}" />
+    <title>Cravies - Staff Login</title>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <form class="counterManForm form-control flex flex-col gap-3 bg-base-200 shadow-2xl p-5 min-w-96 rounded-md" action="./" method="POST" class="">
+        {% csrf_token %}
+
+        <div class="">
+            <h2 class="text-2xl font-semibold">Staff Login</h2>
+        </div>
+
+        {% if err %}
+            <div class="bg-rose-600 p-2 rounded-md text-white px-2 py-1 text-sm">
+                <span>{{err}}</span>
+            </div>
+        {% endif %}
+
+        <div>
+            <label class="label">Username</label>
+            <input class="input w-full" type="text" name="email">
+        </div>
+
+        <div>
+            <label class="label">Password</label>
+            <input class="input w-full" type="password" name="psw">
+        </div>
+        
+        <div>
+            <button class="btn btn-primary">Login
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                  </svg>
+                  
+            </button>
+        </div>
+      
+    </form>
+</body>
+</html>

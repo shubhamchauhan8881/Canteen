@@ -1,0 +1,26 @@
+{% extends 'counter/base.html' %}
+{% block content %}
+
+<div class="w-full">
+    <p class="my-5 text-xl font-bold">Products / Items</p>
+
+    <div class="grid grid-cols-4 gap-4">
+        {% for product in products %}
+            <div class="flex p-5 bg-base-100 rounded shadow-md">
+                <div class="grow">
+                    <h4 class="font-headings text-xl font-bold">{{product.name}}</h4>
+                    <p class="font-semibold text-sm">Rs. {{product.price}}</p>
+                </div>
+                <div class="flex gap-2 items-center flex-col justify-end">
+                    <form class="form-control" method="post" action="/counter/set-product-status/{{product.id}}/" id="product-status-form-{{product.id}}">
+                        {% csrf_token %}
+                        <input value="true" type="checkbox" name="product-status" class="toggle toggle-success" onchange="$('#product-status-form-{{product.id}}').submit()" {% if product.availibility %} checked {% endif %} />
+                    </form>        
+                    <span class="text-xs">{% if product.availibility %} Available {% else %} Not Available {% endif %}</span> 
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

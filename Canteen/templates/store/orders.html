@@ -1,0 +1,62 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="px-4 text-white">
+    {% include 'store/header.html' %}
+    {% include 'store/sweeper.html' %}
+</div>
+    
+<div class="bg-secondary text-Black rounded-xl relative px-4 py-8">
+    
+    <h2 class="text-3xl  text-info font-bold text-center">Your Orders</h2> 
+    {% if orders %}
+        <div class="flex flex-col gap-2 mt-8 text-accent">
+            {% for i in orders %}
+                <div class="flex bg-accent/15 shadow-lg p-2 rounded-md gap-2 items-top" >
+                    <div class="h-12 w-12">
+                        <img src="{% static 'media/order-conf.png' %}" class="h-full w-full object-cover">
+                    </div>
+                    <div class="grow" id="OrderDetails">
+                        <p class="text-lg font-semibold text-info">
+                            {% for p in i.1 %}
+                                <span>{{p.0.name}} x {{ p.1 }}, </span>
+                            {% endfor %}
+                        </p>
+                        <p class="text-sm">Rs. {{i.0.amount}}</p>
+                        <p class="text-xs">{{i.0.time}}</p>
+                        <div class="h-0 duration-700 overflow-hidden my-2">
+                            <div class=""> 
+                                <p class="text-sm">Order id: {{ i.0.razorpay_order_id }}</p>
+                                <p class="text-sm capitalize">Payment Mode: {{i.0.payment_method}}</p>
+                                {% if i.0.payment_method != 'cod' %}
+                                    <p class="text-sm">Payment id:  {{i.0.razorpay_payment_id}}</p>
+                                    <p class="text-sm">Payment status:  {{i.0.txn_status}}</p>
+                                {% endif %}
+                                <p class="text-sm">Order status: {{ i.0.order_status }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="text-center">
+
+                <div class="my-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-28 h-28 mx-auto">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                    <p class="text-center text-xl font-bold">You have not placed any order yet..!</p>
+                </div>
+
+                <div class="">
+                    <a href="/">
+                        <button class="btn bg-Canteen hover:bg-Black text-white">Taste a range of foods</button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+</div>
+{% include 'store/footer.html' %}
+{% endblock %}

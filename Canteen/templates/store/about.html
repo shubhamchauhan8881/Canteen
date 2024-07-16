@@ -1,0 +1,73 @@
+{% extends 'store/base.html' %}
+{% block content %}
+{% load static %}
+    <div class="px-4">
+        {% include 'store/header.html' %}
+        {% include 'store/sweeper.html' %}
+    </div>
+
+    <div class="bg-secondary rounded-xl relative px-4 py-8 text-accent">
+
+        <div>
+            <h2 class="text-2xl font-semibold text-accent text-center">Why Choose us</h2>
+        </div>
+
+        <div class="p-5">
+                <div class="flex flex-col gap-5">
+
+                    <div class="flex bg-accent/15 p-2 rounded-md gap-2 items-center">
+                        <div class="h-12 w-12">
+                            <img src="{% static 'media/fast.png' %}" class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-md teachers text-xl font-medium">Fast & Secure</p>
+                            <p class="">We provide fast and secure payments.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex bg-accent/15 p-2 rounded-md gap-2 items-center">
+                        <div class="h-12 w-12">
+                            <img src="{% static 'media/fast.png' %}" class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-md teachers text-xl font-medium">Pure Food Materials</p>
+                            <p class="">We provide pure food materials.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <p class="text-md text-info font-medium mt-5">Why Choose Us</p>
+                <p class="text-md text-accent">Welcome to CRAVIES, where we are dedicated to providing you with the best food delivery experience on campus. Here's why you should choose us:</p>
+                
+                <p class="text-md text-info font-medium mt-5">Trusted Vendors</p>
+                <p class="text-md text-accent">We partner with nearby trusted vendors to bring you a wide variety of delicious meals. So, for your cravings from your favourite outlets/providers, we ensure that your food is prepared best. We look to provide best quality, hygiene, and taste, so you can enjoy your meals with confidence.</p>
+                
+                <p class="text-md text-info font-medium mt-5">Convenience at Your Fingertips</p>
+                <p class="text-md text-accent">Say goodbye to long walks to get your favourite food. With our service, you can order from the comfort of your dorm, library, or anywhere else on campus. Our easy-to-use platform allows you to browse menus and place orders all with just a few clicks. Whether you're studying, chilling with friends, or simply relaxing, we've got you covered.</p>
+
+                <p class="text-md text-info font-medium mt-5">Campus-Wide Delivery</p>
+                <p class="text-md text-accent">No matter where you are on campus, we deliver. From the central quad to the furthest hostel/dorm, our delivery team is dedicated to bringing your food directly to you. Enjoy your meals at your favourite hangout spots without having to leave the comfort of your location.</p>
+
+                <p class="text-md text-info font-medium mt-5">Affordable Prices</p>
+                <p class="text-md text-accent">We understand that students are always looking for the best value. That's why our delivery prices are very nominal compared to other competitors. We offer great food at prices that won't break the bank, making it easier for you to enjoy your favourite meals more often.</p>
+
+                <p class="text-md text-info font-medium mt-5">Fast and Reliable Service</p>
+                <p class="text-md text-accent">We know that when you're hungry, you want your food as quickly as possible. Our efficient delivery system ensures that your food arrives hot and fresh, every time.</p>
+
+                <p class="text-md text-info font-medium mt-5">Exceptional Customer Support</p>
+                <p class="text-md text-accent">Our customer support team is always ready to assist you with any questions or concerns. Whether you need help with an order, have a special request, or need to resolve an issue, we're here to provide you with prompt and friendly service.</p>
+
+                <p class="text-md text-info font-medium mt-5">At CRAVIES, we are committed to satisfying your cravings easily. Join our community of satisfied customers and experience the best in food delivery on campus. Thank you for choosing us – your convenience, satisfaction, and happiness are our top priorities.</p>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    {% include 'store/footer.html' %}
+{% endblock %}
