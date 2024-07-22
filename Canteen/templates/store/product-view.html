@@ -8,7 +8,7 @@
     <div class="bg-secondary rounded-xl relative px-4 py-8">
 
         <div>
-            <h2 class="text-2xl font-semibold text-center">Crave-worthy dishes from your <span class="font-semibold text-info block">Favourite Outlets.</span></h2>
+            <h2 class="text-2xl font-semibold text-center text-info">Crave-worthy dishes from your <span class="font-extrabold tracking-wide block">Favourite Outlets.</span></h2>
             <div class="flex justify-center flex-wrap flex-row-reverse gap-2 mt-4" >
                 <a href="/"><button type="button" class="btn btn-sm btn-outline btn-primary">All</button></a>
 
@@ -17,25 +17,46 @@
                 {% endfor %}
             </div>
 
-
-            <!-- <div class="flex items-center gap-8 mt-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
-                </svg>
-
-                <div class="form-control grow">
-                    <select class="input bg-Yellow input-bordered border-black">
-                        <option value="" class="">All</option>
-                        <option value="" class="">Khare's Kitchen</option>
-                        <option value="" class="">Nani Ke samose</option>
-                    </select>
-                </div>
-            </div> -->
         </div>
 
         <div class="restaurent-listing flex flex-col gap-y-8 mt-8">
 
-            {% include 'store/dishes.html' %}
+            {% comment %} {% include 'store/dishes.html' %} {% endcomment %}
+            <div>
+                <div class="flex gap-4 justify-between items-stretch">
+                    
+                    <div class="h-28 w-32 shrink-0 shadow-lg shadow-accent overflow-hidden rounded-xl">
+                        <img src="{{ product.image.url }}" alt="get net" class="h-full w-full object-fit" lazy>
+                    </div>
+        
+                    <div class="grow inline-flex flex-col justify-between text-accent gap-y-2">
+                        <p class="pname text-xl font-semibold">{{product.name}}</p>
+                        <p class="pprice font-medium">Rs. {{product.price}}/-</p>
+                        <p class="text">{{product.description}}</p>                        
+                    </div>
+    
+                </div>
+                
+                <div class="cart_buttons mt-4 text-right">
+                    <div class="inline-block available bg-accent rounded-md">
+                        {% if product.availibility and product.shop.is_open %}
+                        <button class="w-full py-1 px-4 text-white" id="AddToCartButton" value="{{product.id}}">Add to Cart</button>
+                        {% else %}
+                        <button class="w-full py-1 px-4 cursor-not-allowed bg-rose-600 text-white">{% if not product.shop.is_open %} Shop Closed {% else %}Not Available{% endif %}</button>
+                        {% endif %}
+    
+                        <div class="hidden">
+                            <div class="flex items-center">
+                                <button type="button" value="{{product.id}}" id="cart-minus-btn" class="px-4 text-md py-1 text-white">-</button>
+                                <p class="grow text-center text-black py-1 px-4 font-semibold bg-secondary" id="qtty{{product.id}}">1</p>
+                                <button type="button" value="{{product.id}}" id="cart-plus-btn" class=" px-4 text-md py-1 text-white">+</button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+
 
             <div>
                 <div class="collapse collapse-arrow {% if not key.0.is_open %} opacity-90 {% endif %}">
@@ -51,24 +72,25 @@
 
 
             <div class="mb-4">
-                <h2 class="text-xl font-semibold text-info">Customer reviews</h2>
+                <h2 class="text-xl font-semibold text-info mb-4">Customer reviews</h2>
 
-                <div class="review-wrapper p-4 text-accent">
+                <div class="review-wrapper text-accent">
                     <div class="review-container flex flex-col gap-y-4">
                         {% if reviews %}
                             {% for r in reviews %}
                                 <div class="review">
-                                    <div class="flex justify-between items-center">
-                                        <div class="flex gap-x-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <div class="flex gap-2 justify-start items-start">
+                                        <div class="w-10 h-10">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-full w-full">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                             </svg>
-                                            <span class="font-semibold">{% if r.user %}  {{r.user.first_name}} {% else %} AnonymousUser {% endif %}</span>
                                         </div>
-                                        <p class="text-xs">{{r.careted_at}}</p>
-                                    </div>
-                                    <div class="mt-2">
-                                        <p>{{r.review}}</p>
+
+                                        <div>
+                                            <span class="font-semibold text-lg">{% if r.user %}  {{r.user.first_name}} {% else %} AnonymousUser {% endif %}</span>
+                                            <p class="text-xs font-medium">{{r.careted_at}}</p>
+                                            <p class="text-md font-semibold mt-2">{{r.review}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             {% endfor %} 
@@ -81,16 +103,16 @@
                     <div class="post-review mt-8">
                         <form class="form-control" method="get" action="/post-review/{{product.id}}/">
                             <h2 class="text-sm font-semibold">Post your review</h2>
-                            <label class="flex items-center gap-2 rounded-lg justify-between">
-                                <input  type="text" name="feedback" class="input input-md input-bordered input-accent bg-transparent grow " placeholder="write your review..." required/>
-                    
-                                <button type="submit" class="btn btn-outline btn-accent btn-md h-full ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+
+
+                            <label class="input input-bordered input-accent bg-secondary flex items-center gap-2">
+                                <input type="text" name="feedback" class="grow" placeholder="write your review..." />
+                                <button type="submit" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1" stroke="white" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                                     </svg>
                                 </button>
-                            </label>
-                    
+                              </label>
                         </form>
                     </div>
                 </div>

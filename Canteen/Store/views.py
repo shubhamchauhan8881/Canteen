@@ -132,7 +132,8 @@ class ProductFeedback(View):
             product=models.Product.objects.get(id=pid),
             review=request.GET.get('feedback'),
         )
-        return redirect(request.META.get('HTTP_REFERER'))
+        messages.success(request, "Thank you for your feedback! Your review has been recorded and is currently under review. Once verified, it will be publicly visible.")
+        return redirect(request.META.get('HTTP_REFERER'), permanent=True)
 
 
 class LoginPage(View):

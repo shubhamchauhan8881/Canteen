@@ -9,15 +9,18 @@
                     {% for product in c.1 %}
 
                         <div class="dishes bg-accent/15 rounded-xl shadow-md hover:shadow-lg">
-                            <div class="flex">
+                            <div class="flex justify-between items-stretch">
                                 <div class="p-4 grow inline-flex  flex-col justify-between text-info">
-                                    <a href="/refreshment/{{product.id}}"><p class="pname text-xl font-medium">{{product.name}}</p></a>
-                                    <p class="pprice font-semibold py-1">Rs. {{product.price}}/-</p>
-                                    <p class="text-sm">{{product.description}}</p>
+                                    <a href="/refreshment/{{product.id}}"><p class="pname text-lg font-semibold">{{product.name}}</p></a>
+                                    <p class="pprice font-medium py-1">Rs. {{product.price}}/-</p>
+                                    <div class="flex items-center justify-start">
+                                        <p class="text-sm line-clamp-1">{{product.description}}</p>
+                                        <a href="/refreshment/{{product.id}}" class="cursor-pointer text-sm shrink-0 text-info font-semibold">&nbsp;:read more</a>
+                                    </div>
                                 </div>
                 
                                 <div class="relative">
-                                    <div class="h-28 w-32 overflow-hidden rounded-xl">
+                                    <div class="h-full w-32 overflow-hidden rounded-xl">
                                         <img src="{{ product.image.url }}" alt="get net" class="h-full w-full object-fit">
                                     </div>
                 
@@ -43,9 +46,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
 
                     {% endfor %}
 
