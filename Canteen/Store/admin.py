@@ -52,6 +52,7 @@ admin.site.register(models.TelegramClients)
 admin.site.register(models.Product)
 admin.site.register(models.ProductReviews)
 admin.site.register(models.Customer)
+admin.site.register(models.Cart)
 admin.site.register(models.NewInTheMenu, NewInTheMenuAdmin)
 admin.site.register(models.Orders, OrdersAdmin)
 # models.Cart

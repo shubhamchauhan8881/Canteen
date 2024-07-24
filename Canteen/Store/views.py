@@ -406,23 +406,31 @@ def AboutPage(request):
 
 @csrf_exempt
 def ManageSessionCart(request, action):
-    print(action)
-    pid = request.POST["id"]
-    try:
-        cart = request.session["cart"]
-    except:
-        cart = request.session["cart"] = {}
-    # adding item to cart
-    item = cart.get(pid)
-    if item is None:
-        cart[pid] = 1 # { pid:qtty }
+    if not request.user.is_authenticated:
+        return JsonResponse({"ok": False, "message": "Please login first."})
+    
+    pid = request.POST.get("pid")
+    
+    cart = models.Cart.get_by_pk(request.user, pid)
+
+    if cart:
+        if action == "add":
+            cart.qtty += 1
+        else:
+            cart.qtty -= 1
+            if cart.qtty <= 0:
+                cart.delete()
+                JsonResponse({"ok": True, "message": "cart item deleted", "new_qtty": 0})
+        cart.save()
     else:
-        prev_qtty = cart[pid]
-        cart[pid] = prev_qtty + 1
+        cart = models.Cart.objects.create(
+            user = request.user,
+            product= models.Product.objects.get(pk=pid),
+            qtty=1
+        )
 
-    request.session["cart"] = cart
-    return HttpResponse("ok")
-
+    return JsonResponse({"ok": True, "message": "chanegs updated", "new_qtty": cart.qtty})
+    
 
 
 @login_required(redirect_field_name="loginpage")

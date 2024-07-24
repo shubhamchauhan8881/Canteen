@@ -1,4 +1,9 @@
-var cart = {};
+var cart =  JSON.parse(localStorage.getItem("cart")) || {};
+const AddToCartButtons = document.querySelectorAll("#AddToCartButton");
+const cart_plus_btn = document.querySelectorAll("#cart-plus-btn");
+const cart_minus_btn = document.querySelectorAll("#cart-minus-btn");
+const OrderDetails = document.querySelectorAll("#OrderDetails");
+
 var sum_amount = 0;
 
 const swiper = new Swiper('.swiper', {
@@ -16,11 +21,18 @@ const swiper = new Swiper('.swiper', {
 });
 
 
+$("#cart-btn-form").on("submit", e=>{
+  e.preventDefault();
+  $("#cartInput").val(localStorage.getItem("cart"));
+  e.target.submit();
+});
+
+
 
 function AddItemToCart(pid, action='add', e=null){
   let para = $(`#qtty${pid}`);
   let cartCounter = $("#cartCounter");
-  let cartInput = $("#cartInput");
+  // 
   let amc = $("#cartAmountCounter");
   let prev_qtty=0;
   switch(action){
@@ -29,9 +41,8 @@ function AddItemToCart(pid, action='add', e=null){
       para.text(1)
       break;
     case "inc":
-      prev_qtty= cart[pid];
-      cart[pid]= prev_qtty+1;
-      para.text(prev_qtty+1)
+      cart[pid] += 1;
+      para.text(cart[pid]);
       break;
     case "dec":
       prev_qtty = cart[pid];
@@ -47,56 +58,70 @@ function AddItemToCart(pid, action='add', e=null){
       }
       break;
   }
+  localStorage.setItem("cart", JSON.stringify(cart));
   cartCounter.text(Object.keys(cart).length);
-  cartInput.val(JSON.stringify(cart));
+  // cartInput.val(JSON.stringify(cart));
 }
 
-const AddToCartButtons = document.querySelectorAll("#AddToCartButton");
-AddToCartButtons.forEach((value, index)=>{  
-  $(value).click((e)=>{
+
+$(document).ready(function(){
+  let cartCounter = $("#cartCounter");
+  cartCounter.text(Object.keys(cart).length);
+  
+  AddToCartButtons.forEach((value, index)=>{  
     let button = $(value);
-    let pid = button.attr("value");
-    AddItemToCart(pid)
-    button.hide();
-    button.siblings().fadeIn();
+    let pid = button.attr("value")
+    if(cart[pid]){
+      button.hide();
+      button.siblings().fadeIn();
+      $(`#qtty${pid}`).text(cart[pid])
+    }
+  
+    $(value).on("click", (e)=>{
+      AddItemToCart(button.attr("value"));
+      button.hide();
+      button.siblings().fadeIn();
+    });
   });
-});
 
-const cart_plus_btn = document.querySelectorAll("#cart-plus-btn");
-cart_plus_btn.forEach((input, index)=>{
-  $(input).on("click", (e)=>{
-    let pid =  e.target.value;
-    AddItemToCart(pid, "inc", e);
+
+
+  cart_plus_btn.forEach((input, index)=>{
+    $(input).on("click", (e)=>{
+      AddItemToCart( e.target.value, "inc", e);
+    });
   });
-});
 
-const cart_minus_btn = document.querySelectorAll("#cart-minus-btn");
-cart_minus_btn.forEach((input, index)=>{
-  $(input).on("click", (e)=>{
-    let pid =  e.target.value;
-    AddItemToCart(pid, "dec", e);
+  
+  cart_minus_btn.forEach((input, index)=>{
+    $(input).on("click", (e)=>{
+      AddItemToCart( e.target.value, "dec", e);
+    });
   });
-});
 
 
+  
 
-var menu_toggle = 1;
-$(".menu-btn").click(function(e) {
-    menu_toggle += 1;
-    if(menu_toggle%2==0)$('.menu-items').animate({height:'136px'},);
-    else $('.menu-items').animate({height:'0px'},);
-});
-
-
-
-const OrderDetails = document.querySelectorAll("#OrderDetails");
-OrderDetails.forEach((div, index)=>{
+  OrderDetails.forEach((div, index)=>{
     let d = $(div);
     d.on("click", (e)=>{
       childs =d.children().siblings()[3];
       $(childs).toggleClass("h-0");
     });
+  });
+
+
 });
+
+
+
+var menu_toggle = 1;
+$(".menu-btn").on("click", function(e) {
+    menu_toggle += 1;
+    if(menu_toggle%2==0)$('.menu-items').animate({height:'136px'},);
+    else $('.menu-items').animate({height:'0px'},);
+});
+
 
 
 

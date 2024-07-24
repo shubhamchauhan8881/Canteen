@@ -8,7 +8,7 @@
             <span id="cartCounter">0</span> Items
         </div>
 
-        <form action="/cart/" method="get" class="grow">
+        <form action="/cart/" method="get" class="grow" id="cart-btn-form">
             {% csrf_token %}
             <input name="cartInput" type="text" id="cartInput" hidden>
             <button type="submit" id="visitCartPage" class=" text-lg" style="width: 100%; text-align: right;">

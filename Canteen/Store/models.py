@@ -83,10 +83,18 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     qtty = models.IntegerField(default=1)
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_time_added = models.DateTimeField(auto_now_add=True)
+
+    @staticmethod
+    def get_by_pk(user, pk):
+        try:
+            return Cart.objects.get(user=user, product__pk= pk )
+        except:
+            return False
+
 
 
 class Orders(models.Model):

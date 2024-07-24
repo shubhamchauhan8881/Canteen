@@ -17,8 +17,8 @@ urlpatterns = [
     path('orders/', views.UserOrders),
     path('payment/', views.Payment.as_view()),
     path('order-success/<int:orderId>/', views.OrderSuccess, name="ordersuccess"),
-    # path('set-cart/<str:action>/', views.ManageSessionCart),
     path('handlepayment/', views.paymenthandler),
     path('terms-and-conditions/', views.tc),
+    path('set-cart/<str:action>/', views.ManageSessionCart),
 ]
 
