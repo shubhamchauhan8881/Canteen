@@ -142,7 +142,7 @@ function GetSearchResults(e){
 	const search_no_results = $("#search-no-results");
 	const search_results_container = $("#search-results-container");
   const search_results_wrapper = $(".search-results-wrapper")
-	if(inp !== "" && inp.length > 3)
+	if(inp !== "" && inp.length >= 3)
 		{			
 			$.ajax({
 				url:"/search/",
