@@ -71,7 +71,7 @@ def get_search_results(request):
     name = request.POST.get("input")
     
     #fetch products
-    products = models.Product.objects.filter(name__istartswith=name)
+    products = models.Product.objects.filter(name__icontains=name)
     if products.count() <= 0:
         return JsonResponse({"ok":True, "message":f"No matching products for {name}"}, status=404)
     else:
